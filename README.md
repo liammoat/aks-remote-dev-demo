@@ -14,12 +14,14 @@
 
 ## Run
 
-Run a public image:
-
-```
-./scripts/run lajm-dev-dotnet-60 mcr.microsoft.com/vscode/devcontainers/dotnet:6.0
+Run a self-built images:
 
 ```
 ./scripts/run lajm-dev-dotnet-31 lmk8sdemoarc.azurecr.io/dev-containers/dotnet:3.1
 ```
 
+Run a public image:
+
+```
+./scripts/run lajm-dev-dotnet-60 mcr.microsoft.com/vscode/devcontainers/dotnet:6.0
+```
