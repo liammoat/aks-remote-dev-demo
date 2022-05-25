@@ -1,0 +1,24 @@
+#! /bin/bash
+
+REGISTRY=$1
+REPO=$2
+VARIANT=$3
+TAG=$4
+
+function help {
+    echo $1
+    echo ""
+    echo "Example Usage:"
+    echo "./build <registry> <repo> <varient> <tag>"
+    exit
+}
+
+[ -z "$REGISTRY" ] && help "<registry> is missing or invalid."
+[ -z "$REPO" ] && help "<repo> is missing or invalid."
+[ -z "$VARIANT" ] && help "<variant> is missing or invalid."
+[ -z "$TAG" ] && help "<tag> is missing or invalid."
+
+az acr build --image "dev-containers/$REPO:$TAG" \
+  --build-arg VARIANT=$VARIANT \
+  --registry $REGISTRY \
+  --file ./src/$REPO/Dockerfile ./src/$REPO

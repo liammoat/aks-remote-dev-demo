@@ -1,0 +1,28 @@
+#! /bin/bash
+
+NAME=$1
+IMAGE=$2
+
+function help {
+    echo $1
+    echo ""
+    echo "Example Usage:"
+    echo "./run <name> <image>"
+    exit
+}
+
+[ -z "$NAME" ] && help "<name> is missing or invalid."
+[ -z "$IMAGE" ] && help "<repo> is missing or invalid."
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: $NAME
+spec:
+  containers:
+  - name: $NAME
+    image: $IMAGE
+    command: ["sh", "-c", "tail -f /dev/null"]
+  restartPolicy: Never
+EOF

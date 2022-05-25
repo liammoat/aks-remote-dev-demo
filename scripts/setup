@@ -1,0 +1,25 @@
+#! /bin/bash
+
+SUBSCRIPTION=$1
+RG=$2
+CLUSTER=$3
+NAMESPACE=$4
+
+function help {
+    echo $1
+    echo ""
+    echo "Example Usage:"
+    echo "./run <subscription> <rg> <cluster> <namespace>"
+    exit
+}
+
+[ -z "$SUBSCRIPTION" ] && help "<subscription> is missing or invalid."
+[ -z "$RG" ] && help "<rg> is missing or invalid."
+[ -z "$CLUSTER" ] && help "<cluster> is missing or invalid."
+[ -z "$NAMESPACE" ] && help "<namespace> is missing or invalid."
+
+
+az login --use-device-code
+az account set --subscription $SUBSCRIPTION
+az aks get-credentials -n $CLUSTER -g $RG
+kubectl config set-context --current --namespace=$NAMESPACE
